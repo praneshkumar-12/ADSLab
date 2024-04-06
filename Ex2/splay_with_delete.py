@@ -162,9 +162,9 @@ class SplayTree:
         
         if key == pos.key:
             return pos
-        elif key < pos.key:
+        elif key < pos.key and pos.left is not None:
             return self.search(key, pos.left)
-        elif key > pos.key:
+        elif key > pos.key and pos.right is not None:
             return self.search(key, pos.right)
         else:
             return None
@@ -239,7 +239,7 @@ if __name__ == "__main__":
     splay_tree.preorder(splay_tree.root)  # Print the tree in preorder traversal
 
     # Delete a key from the tree
-    key_to_delete = 7
+    key_to_delete = 734
     print(f"\nDeleting key {key_to_delete} from the tree:")
     splay_tree.delete(key_to_delete)
 
