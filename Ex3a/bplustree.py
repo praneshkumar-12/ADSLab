@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class BPlusTreeNode:
-    '''
+    """
     Represents a node in the B+ Tree.
 
     Attributes:
@@ -9,38 +9,41 @@ class BPlusTreeNode:
     - is_leaf: Boolean indicating if the node is a leaf node.
     - next_leaf: Reference to the next leaf node (for leaf nodes).
     - parent: Reference to the parent node.
-    '''
+    """
+
     def __init__(self, is_leaf=True):
-        '''
+        """
         Constructor for the BPlusTreeNode class.
 
         Parameters:
         - is_leaf: Boolean indicating if the node is a leaf node.
-        '''
+        """
         self.keys = []
         self.children = []
         self.is_leaf = is_leaf
         self.next_leaf = None  # For leaf nodes
         self.parent = None
 
+
 class BPlusTree:
-    '''
+    """
     Represents a B+ Tree data structure.
-    '''
+    """
+
     def __init__(self, order):
-        '''
+        """
         Constructor for the BPlusTree class.
 
         Parameters:
         - order: The order of the B+ Tree.
-        '''
+        """
 
         self.root = BPlusTreeNode()
         self.order = order
 
     def search(self, key):
         return self._search(self.root, key)
-    
+
     def _search(self, node, key):
         if node.is_leaf:
             for k in node.keys:
@@ -52,9 +55,9 @@ class BPlusTree:
             while i < len(node.keys) and key >= node.keys[i]:
                 i += 1
             return self._search(node.children[i], key)
-    
-    def searchkey(self,key):
-        '''
+
+    def searchkey(self, key):
+        """
         Searches for a key in the B+ Tree and returns a message.
 
         Parameters:
@@ -62,32 +65,32 @@ class BPlusTree:
 
         Returns:
         - Message indicating if the key is found or not.
-        '''
-        l1=self.inorder_traversal()
-        if key in l1 :
+        """
+        l1 = self.inorder_traversal()
+        if key in l1:
             return f"{key} found in the B+ tree."
         else:
             return f"{search_key}  not found in the B+ tree."
 
     def insert(self, key):
-        '''
+        """
         Inserts a key into the B+ Tree.
 
         Parameters:
         - key: The key to be inserted.
-        '''
+        """
         if key is None:
             raise ValueError("Key cannot be None")
         self._insert(self.root, key)
 
     def _insert(self, node, key):
-        '''
+        """
         Recursively inserts a key into the B+ Tree.
 
         Parameters:
         - node: The current node being processed.
         - key: The key to be inserted.
-        '''
+        """
         if node.is_leaf:
             i = 0
             while i < len(node.keys) and key > node.keys[i]:
@@ -103,12 +106,12 @@ class BPlusTree:
             self._insert(node.children[i], key)
 
     def _split_leaf(self, node):
-        '''
+        """
         Splits a leaf node in the B+ Tree.
 
         Parameters:
         - node: The node to be split.
-        '''
+        """
         mid = len(node.keys) // 2
         new_leaf = BPlusTreeNode(is_leaf=True)
         new_leaf.keys = node.keys[mid:]
@@ -132,21 +135,21 @@ class BPlusTree:
 
             if len(node.parent.keys) > self.order:
                 self._split_non_leaf(node.parent)
-                
+
     def _split_non_leaf(self, node):
-        '''
+        """
         Splits a non-leaf node in the B+ Tree.
 
         Parameters:
         - node: The node to be split.
-        '''
+        """
         mid = len(node.keys) // 2
         new_node = BPlusTreeNode(is_leaf=False)
-        new_node.keys = node.keys[mid + 1:]
+        new_node.keys = node.keys[mid + 1 :]
         node.keys = node.keys[:mid]
 
-        new_node.children = node.children[mid + 1:]
-        node.children = node.children[:mid + 1]
+        new_node.children = node.children[mid + 1 :]
+        node.children = node.children[: mid + 1]
 
         for child in new_node.children:
             child.parent = new_node
@@ -168,14 +171,14 @@ class BPlusTree:
                 self._split_non_leaf(node.parent)
 
     def _get_index(self, node, key):
-        '''To get the index of any key value'''
+        """To get the index of any key value"""
         index = 0
         while index < len(node.keys) and key > node.keys[index]:
             index += 1
         return index
 
     def inorder_traversal(self):
-        '''To perform the inorder traversal'''
+        """To perform the inorder traversal"""
         result = []
         self._inorder_traversal(self.root, result)
         return result
@@ -192,7 +195,7 @@ class BPlusTree:
                     self._inorder_traversal(child, result)
 
     def print_leaf_keys(self):
-        '''To print the keys in the leaf nodes'''
+        """To print the keys in the leaf nodes"""
         leaf_keys = []
         self._get_leaf_keys(self.root, leaf_keys)
         print("Keys in Leaf Nodes:", leaf_keys)
@@ -206,21 +209,22 @@ class BPlusTree:
                 for child in node.children:
                     self._get_leaf_keys(child, leaf_keys)
 
+
 # Driver code
-if __name__=="__main__":
+if __name__ == "__main__":
     bplus_tree = BPlusTree(order=3)
 
-    keys_to_insert = [10,15,1,16,7,25,23,17,18,9,28,24]
+    keys_to_insert = [10, 15, 1, 16, 7, 25, 23, 17, 18, 9, 28, 24]
     for key in keys_to_insert:
         bplus_tree.insert(key)
 
     print("Inorder Traversal:", bplus_tree.inorder_traversal())
 
     search_key = 15
-    '''if bplus_tree.search(search_key):
+    """if bplus_tree.search(search_key):
         print(f"{search_key} found in the B+ tree.")
     else:
-        print(f"{search_key} not found in the B+ tree.")'''
+        print(f"{search_key} not found in the B+ tree.")"""
     print(bplus_tree.searchkey(search_key))
 
     bplus_tree.print_leaf_keys()

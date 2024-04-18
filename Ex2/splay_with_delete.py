@@ -155,11 +155,11 @@ class SplayTree:
         while node.right != None:
             node = node.right
         return node
-    
+
     def search(self, key, pos=None):
         if pos is None:
             pos = self.root
-        
+
         if key == pos.key:
             return pos
         elif key < pos.key and pos.left is not None:
@@ -168,9 +168,8 @@ class SplayTree:
             return self.search(key, pos.right)
         else:
             return None
-        
-    def delete(self, key):
 
+    def delete(self, key):
         search_node = self.search(key)
 
         if search_node is None:
@@ -200,7 +199,6 @@ class SplayTree:
         else:
             self.root = right_subtree.root
 
-        
     def preorder(self, root):
         """
         Performs preorder traversal starting from the given root node.

@@ -185,7 +185,7 @@ if __name__ == "__main__":
     b.preorder(b.root)
     print()
     b.inorder(b.root)
-    
+
     print()
     print("==================================")
     print()

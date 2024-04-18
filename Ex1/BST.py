@@ -1,5 +1,6 @@
 from Node import Node  # Importing the Node class from the Node module
 
+
 class BST:
     """
     Binary Search Tree (BST) class.
@@ -15,13 +16,13 @@ class BST:
         - t_right: Right subtree of the BST (optional).
         """
         self.root = None  # Initialize the root node
-        self.size = 0     # Initialize the size of the BST
-        self.res = ""     # Initialize an empty string for storing traversal results
+        self.size = 0  # Initialize the size of the BST
+        self.res = ""  # Initialize an empty string for storing traversal results
 
         # If item is provided during initialization, add it as the root
         if item is not None:
             self.root = self.addRoot(item)
-        
+
         # If a left subtree is provided, attach it to the left of the root
         if t_left is not None:
             if self.root is None:
@@ -31,7 +32,7 @@ class BST:
                 t_left.parent = self.root
                 t_left.root = None
                 self.size += t_left.size
-        
+
         # If a right subtree is provided, attach it to the right of the root
         if t_right is not None:
             if self.root is None:
@@ -50,7 +51,7 @@ class BST:
         - True if the BST is empty, False otherwise.
         """
         return True if self.root is None else False  # Check if the BST is empty
-    
+
     def addRoot(self, item):
         """
         Adds a root node to the BST.
@@ -64,7 +65,7 @@ class BST:
         if self.root is not None:
             raise ValueError("Root already exists!")
         self.root = Node(item=item)  # Create a new root node with the provided item
-        self.size += 1               # Increase the size of the BST
+        self.size += 1  # Increase the size of the BST
         return self.root
 
     def __len__(self):
@@ -75,7 +76,7 @@ class BST:
         - The size of the BST.
         """
         return self.size  # Return the size of the BST
-    
+
     def addLeft(self, item, pos):
         """
         Adds a left child to the specified position in the BST.
@@ -89,9 +90,11 @@ class BST:
         """
         if pos.left is not None:
             return ValueError("Left child already exists!")
-        
-        pos.left = Node(item=item, parent=pos)  # Create a new node and attach it to the left of the given position
-        self.size += 1                         # Increase the size of the BST
+
+        pos.left = Node(
+            item=item, parent=pos
+        )  # Create a new node and attach it to the left of the given position
+        self.size += 1  # Increase the size of the BST
         return pos.left
 
     def addRight(self, item, pos):
@@ -107,11 +110,13 @@ class BST:
         """
         if pos.right is not None:
             return ValueError("Right child already exists!")
-        
-        pos.right = Node(item=item, parent=pos)  # Create a new node and attach it to the right of the given position
-        self.size += 1                          # Increase the size of the BST
+
+        pos.right = Node(
+            item=item, parent=pos
+        )  # Create a new node and attach it to the right of the given position
+        self.size += 1  # Increase the size of the BST
         return pos.right
-    
+
     def insert(self, item, pos=None):
         """
         Inserts an item into the BST.
@@ -130,19 +135,23 @@ class BST:
                 return self.root
             else:
                 pos = self.root
-        
+
         if item < pos.item:
             if pos.left is None:
-                self.addLeft(item, pos)  # If item is less than current position, recursively insert it to the left
+                self.addLeft(
+                    item, pos
+                )  # If item is less than current position, recursively insert it to the left
             else:
                 self.insert(item, pos.left)
 
         if item > pos.item:
             if pos.right is None:
-                self.addRight(item, pos)  # If item is greater than current position, recursively insert it to the right
+                self.addRight(
+                    item, pos
+                )  # If item is greater than current position, recursively insert it to the right
             else:
                 self.insert(item, pos.right)
-        
+
         if item == pos.item:
             return None  # If item already exists in the BST, do nothing
 
@@ -156,11 +165,13 @@ class BST:
         Returns:
         - None.
         """
-        self.res += str(pos.item) + " "  # Append the item of the current position to the result string
+        self.res += (
+            str(pos.item) + " "
+        )  # Append the item of the current position to the result string
 
         if pos.left is not None:
             self._preorder(pos.left)  # Recursively traverse the left subtree
-        
+
         if pos.right is not None:
             self._preorder(pos.right)  # Recursively traverse the right subtree
 
@@ -193,7 +204,7 @@ class BST:
             self._inorder(pos.left)
 
         self.res += str(pos.item) + " "
-        
+
         if pos.right is not None:
             self._inorder(pos.right)
 
@@ -224,7 +235,7 @@ class BST:
         """
         if pos.left is not None:
             self._postorder(pos.left)
-        
+
         if pos.right is not None:
             self._postorder(pos.right)
 
@@ -244,7 +255,7 @@ class BST:
         temp = self.res
         self.res = ""
         return temp  # Return the postorder traversal result
-    
+
     def search(self, item, pos=None):
         """
         Searches for an item in the BST.
@@ -268,7 +279,7 @@ class BST:
             return self.search(item, pos.right)
 
         return None
-    
+
     def findMin(self, pos=None):
         """
         Finds the minimum value node in the BST.
@@ -285,7 +296,7 @@ class BST:
             return self.findMin(pos.left)
         if pos.left is None:
             return pos
-    
+
     def delete(self, item, position=None):
         """
         Deletes an item from the BST.
@@ -299,11 +310,11 @@ class BST:
         """
         if position is None:
             position = self.root
-        
+
         pos = self.search(item, position)
         if pos is None:
             raise ValueError("No such value in tree!")
-        
+
         parent = pos.parent
 
         if pos.left is None and pos.right is None:
@@ -363,6 +374,7 @@ class BST:
             self.delete(smallest_node.item, pos.right)
 
         self.size -= 1
+
 
 if __name__ == "__main__":
     # Create a BST instance

@@ -19,7 +19,7 @@ class Node:
         - right: Reference to the right child node (default is None).
         - parent: Reference to the parent node (default is None).
         """
-        self.item = item      # Value stored in the node
-        self.left = left      # Reference to the left child node
-        self.right = right    # Reference to the right child node
+        self.item = item  # Value stored in the node
+        self.left = left  # Reference to the left child node
+        self.right = right  # Reference to the right child node
         self.parent = parent  # Reference to the parent node
