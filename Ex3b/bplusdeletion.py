@@ -31,7 +31,7 @@ class BPlusTree:
     # Insert key value pairs
     def insert(self, key):
         curr = self.root
-        if len(curr.keys) == 2 * self.degree:
+        if len(curr.keys) == 2 * self.degree:  
             new_root = Node()
             self.root = new_root
             new_root.values.append(curr)
@@ -198,7 +198,7 @@ class BPlusTree:
             node.values.append(next.values.pop(0))
 
     # Function to print Tree
-    def print_tree(self):
+    def print_tree  (self):
         curr_level = [self.root]
         while curr_level:
             next_level = []
@@ -229,7 +229,7 @@ if __name__ == "__main__":
     tree.print_tree()
 
     # delete a key
-    tree.delete(3)
+    # tree.delete(3)
 
-    # print the tree
-    tree.print_tree()
+    # # print the tree
+    # tree.print_tree()

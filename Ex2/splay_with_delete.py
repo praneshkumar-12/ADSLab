@@ -102,12 +102,15 @@ class SplayTree:
         else:
             temp = x.parent
         sub2 = y.left
+
         y.left = x
         x.parent = y
         x.right = None
+
         if sub2 is not None:
             x.right = sub2
             sub2.parent = x
+
         if flag:
             y.parent = None
         else:
@@ -116,6 +119,7 @@ class SplayTree:
                 temp.right = y
             if temp.left == x:
                 temp.left = y
+                
         return y
 
     def splay(self, node):
@@ -159,7 +163,6 @@ class SplayTree:
     def search(self, key, pos=None):
         if pos is None:
             pos = self.root
-
         if key == pos.key:
             return pos
         elif key < pos.key and pos.left is not None:
