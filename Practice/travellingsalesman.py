@@ -80,6 +80,8 @@ class TSP:
                 if cost < self.min_cost:
                     self.min_cost = cost
                     self.min_path = path
+                
+                break
 
             for node in self.get_unvisited(visited):
                 new_path = path + [node]
